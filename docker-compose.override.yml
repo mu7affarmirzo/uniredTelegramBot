@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  db:
+    environment:
+      - POSTGRES_USER=unired_tg
+      - POSTGRES_DB=unired_tg
+      - POSTGRES_PASSWORD=unired_tg
+    volumes:
+      - unired_tg_bot_db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - 6379:6379
+    volumes:
+      - unired_tg_bot_redis:/data
+
+  app:
+    volumes:
+      - .:/app
+    command: python /app/app.py
+
+volumes:
+  unired_tg_bot_db:
+  unired_tg_bot_redis:
